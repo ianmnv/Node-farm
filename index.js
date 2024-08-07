@@ -1,7 +1,12 @@
+/// Core modules
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
 
+/// 3rd party modules
+const slugify = require("slugify");
+
+/// Our modules
 const replaceTemplate = require("./modules/replaceTemplates");
 
 /////////////////////////////
@@ -19,6 +24,8 @@ const tempProduct = fs.readFileSync(
   "utf-8"
 );
 const tempCard = fs.readFileSync(`${__dirname}/templates/card.html`, "utf-8");
+
+const slugs = dataObj.map((el) => slugify(el.productName, { lower: true }));
 
 // req as request & res as response
 const server = http.createServer((req, res) => {
